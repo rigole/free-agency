@@ -4,7 +4,7 @@ import "./index.css";
 import Home from "./pages/Home/Home";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
-import Survey from "./pages/Survey";
+import Survey from "./pages/Survey/Survey";
 import Header from "./components/Header";
 import Error from "./components/Error";
 import Freelance from "./pages/Freelances/Freelance";
