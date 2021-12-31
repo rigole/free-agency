@@ -7,6 +7,7 @@ import reportWebVitals from "./reportWebVitals";
 import Survey from "./pages/Survey";
 import Header from "./components/Header";
 import Error from "./components/Error";
+import Freelance from "./pages/Freelances/Freelance";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -15,6 +16,7 @@ ReactDOM.render(
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/survey/:questionNumber" element={<Survey />} />
+        <Route path="/freelance" element={<Freelance />} />
         <Route path="*" element={<Error />} />
       </Routes>
     </Router>
