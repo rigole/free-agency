@@ -52,7 +52,7 @@ function Card({ label, title, picture}) {
 }
 
 
-Card.prototype = {
+Card.propTypes = {
     label: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     picture: PropTypes.string.isRequired,
