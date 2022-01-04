@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import colors from "../../utils/style/colors";
 
+//TODO :: Updating this footer
+
 const FooterContainer = styled.div`
   display: flex;
   flex-direction: row;
@@ -19,7 +21,13 @@ const NightModeButton = styled.button`
 
 function Footer() {
 
-    return()
+    return(
+        <FooterContainer>
+            <NightModeButton>
+                Changer de mode
+            </NightModeButton>
+        </FooterContainer>
+    )
 }
 
 export default Footer
