@@ -9,6 +9,8 @@ import Header from "./components/Header";
 import Error from "./components/Error";
 import Freelances from "./pages/Freelances";
 import { createGlobalStyle } from "styled-components";
+import { ThemeProvider } from "./utils/context";
+import Footer from "./components/Footer";
 
 const GlobalStyle = createGlobalStyle`
     div{
@@ -18,14 +20,18 @@ const GlobalStyle = createGlobalStyle`
 ReactDOM.render(
   <React.StrictMode>
     <Router>
-      <GlobalStyle />
-      <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/survey/:questionNumber" element={<Survey />} />
-        <Route path="/freelance" element={<Freelances />} />
-        <Route path="*" element={<Error />} />
-      </Routes>
+      <ThemeProvider>
+        <GlobalStyle />
+        <Header />
+
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/survey/:questionNumber" element={<Survey />} />
+          <Route path="/freelance" element={<Freelances />} />
+          <Route path="*" element={<Error />} />
+        </Routes>
+        <Footer />
+      </ThemeProvider>
     </Router>
   </React.StrictMode>,
   document.getElementById("root")
