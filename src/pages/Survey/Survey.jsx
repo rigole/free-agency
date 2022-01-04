@@ -28,7 +28,7 @@ const LinkWrapper = styled.div`
   
 `
 
-
+// TODO : customize error page
 
 function Survey() {
 
@@ -44,7 +44,7 @@ function Survey() {
         async function fetchSurvey(){
             setDataLoading(true)
             try{
-                const response = await fetch(`http://localhost:8080/survey`)
+                const response = await fetch(`http://localhost:8000/survey`)
                 const { surveyData } = await response.json()
                 setSurveyData(true)
             } catch (error){

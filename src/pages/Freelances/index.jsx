@@ -1,6 +1,9 @@
 import logo from  '../../logo.svg'
 import Card from "../../components/Card";
 import styled from "styled-components";
+import {useEffect, useState} from "react";
+import { Loader } from "../../utils/Atoms";
+import colors from "../../utils/style/colors";
 
 const freelanceProfiles =  [
     {
@@ -21,14 +24,74 @@ const freelanceProfiles =  [
 ]
 
 
+// TODO : customize error page
 
+const CardsContainer = styled.div`
+  display: grid;
+  gap: 24px;
+  grid-auto-rows: 350px 350px;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: center;
+  justify-items: center;
+`
+
+const PageTitle = styled.h1`
+    font-size: 30px;
+    color: black;
+    text-align: center;
+    padding-bottom: 30px;
+`
+const PageSubtitle = styled.h2`
+  font-size: 20px;
+  color: ${colors.secondary};
+  font-weight: 300;
+  text-align: center;
+  padding-bottom: 30px;
+`
+const LoaderWrapper = styled.div`
+    display: flex;
+  justify-content: center;
+  `
 
 function Freelances() {
+
+    const [isDataLoading, setDataLoading] = useState(false)
+    const [error, setError] = useState(false)
+    const [freelancersList, setFreeLancesList] = useState([])
+
+    useEffect(() => {
+        async function fetchFreelances() {
+            setDataLoading(true)
+            try {
+                const response = await fetch('http://localhost:8000/freelances')
+                const { freelancersList } = await response.json()
+                setFreeLancesList(freelancersList)
+            }catch (error){
+                console.log(error)
+                setError(true)
+            } finally {
+                setDataLoading(false)
+            }
+        }
+        fetchFreelances()
+    }, [])
+
+    if (error){
+        return  <span>Il ya erreur</span>
+    }
     return(
         <div>
-            <h1>Freelances</h1>
+           <PageTitle>Trouver un Freelance</PageTitle>
+            <PageSubtitle>
+                Chew nous les meilleurs prestataires au meilleur prix
+            </PageSubtitle>
+            { isDataLoading ? (
+                <LoaderWrapper>
+                    <Loader/>
+                </LoaderWrapper>
+            ) :(
             <CardsContainer>
-                {freelanceProfiles.map((profile, index) =>(
+                {freelancersList.map((profile, index) =>(
                     <Card
                         key={`${profile.name}-${index}`}
                         label={profile.jobTitle}
@@ -37,14 +100,12 @@ function Freelances() {
                     />
                 ))}
             </CardsContainer>
+            )}
         </div>
+
     )
 }
 
-const CardsContainer = styled.div`
-  display: grid;
-  gap: 24px;
-  grid-auto-rows: 350px 350px;
-  grid-template-columns: repeat(2, 1fr);
-  `
+
+
 export default Freelances
