@@ -38,15 +38,28 @@ function Survey() {
     const nextQuestionNumber = questionNumberInt +1
     const [isDataLoading, setDataLoading] = useState(false)
     const [surveyData, setSurveyData] = useState()
+    const [error, setError] = useState(false)
 
     useEffect(() => {
-        setDataLoading(true)
-        fetch('http://localhost:8000/')
-            .then((response) => response.json())
-                .then(({ surveyData}) => console.log(surveyData))
-                .catch((error) => console.log(error))
-            )
-    },[])
+        async function fetchSurvey(){
+            setDataLoading(true)
+            try{
+                const response = await fetch(`http://localhost:8080/survey`)
+                const { surveyData } = await response.json()
+                setSurveyData(true)
+            } catch (error){
+                console.log('===== Error =====', error)
+                setError(true)
+            } finally {
+                setDataLoading(false)
+            }
+        }
+        fetchSurvey()
+    }, [])
+
+    if (error){
+        return <span>Oups il y a eu un problème</span>
+    }
 
     return(
         <div>
