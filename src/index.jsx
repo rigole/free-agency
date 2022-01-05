@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
+
 import Home from "./pages/Home/Home";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
@@ -8,22 +8,16 @@ import Survey from "./pages/Survey/Survey";
 import Header from "./components/Header";
 import Error from "./components/Error";
 import Freelances from "./pages/Freelances";
-import { createGlobalStyle } from "styled-components";
+import GlobalStyle from "./utils/style/GlobalStyle";
 import { ThemeProvider } from "./utils/context";
 import Footer from "./components/Footer";
 
-const GlobalStyle = createGlobalStyle`
-    div{
-        font-family: 'Trebuchet MS', Helvetica, sans-serif;
-      }
-`;
 ReactDOM.render(
   <React.StrictMode>
     <Router>
       <ThemeProvider>
         <GlobalStyle />
         <Header />
-
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/survey/:questionNumber" element={<Survey />} />
