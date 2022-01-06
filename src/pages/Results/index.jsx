@@ -15,7 +15,17 @@ const ResultsContainer = styled.div`
   background-color: ${({ theme }) =>
     theme === 'light' ? colors.backgroundLight : colors.backgroundDark};
 `
+const ResultsTitle = styled.h2`
+  color: ${({ theme }) => (theme === 'light' ? '#000000': '#ffffff')};
+  font-weight: bold;
+  font-size: 28px;
+  max-width: 60%;
+  text-align: center;
+  & > span {
+    padding-left: 10px;
+  }
 
+`
 
 const DescriptionWrapper = styled.div`
   padding: 60px;
@@ -77,8 +87,32 @@ function Results() {
         <ResultsContainer theme={theme}>
             <ResultsTitle theme={theme}>
                 Les Compétences dont vous avez besoin:
+                {resultsData &&
+                  resultsData.map((result, index) => (
+                      <JobTitle
+                        key={`result-title-${index}-${result.title}`}
+                        theme={theme}
+                      >
+                          {result.title}
+                          {index === resultsData.length - 1 ? '' : ','}
+                      </JobTitle>
+                  ))}
             </ResultsTitle>
-
+            <StyledLink $isFullLink to="/freelances">
+                Decouvrez nos profils
+            </StyledLink>
+            <DescriptionWrapper>
+                {resultsData &&
+                    resultsData.map((result, index) =>(
+                        <JobDescription
+                            theme={theme}
+                            key={`result-detail-${index}-${result.title}`}
+                        >
+                            <JobTitle theme={theme}>{result.title}</JobTitle>
+                            <p>{result.description}</p>
+                        </JobDescription>
+                    ))}
+            </DescriptionWrapper>
         </ResultsContainer>
     )
 }
