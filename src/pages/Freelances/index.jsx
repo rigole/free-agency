@@ -1,9 +1,10 @@
 import logo from  '../../logo.svg'
 import Card from "../../components/Card";
 import styled from "styled-components";
-import {useEffect, useState} from "react";
+//import {useEffect, useState} from "react";
 import { Loader } from "../../utils/Atoms";
 import colors from "../../utils/style/colors";
+import { useFetch, useTheme } from "../../utils/hooks";
 
 const freelanceProfiles =  [
     {
@@ -37,7 +38,7 @@ const CardsContainer = styled.div`
 
 const PageTitle = styled.h1`
     font-size: 30px;
-    color: black;
+    color: ${({theme }) => (theme === 'light' ? '#000000' : '#ffffff')};
     text-align: center;
     padding-bottom: 30px;
 `
@@ -55,39 +56,28 @@ const LoaderWrapper = styled.div`
 
 function Freelances() {
 
-    const [isDataLoading, setDataLoading] = useState(false)
+    /*const [isDataLoading, setDataLoading] = useState(false)
     const [error, setError] = useState(false)
-    const [freelancersList, setFreeLancesList] = useState([])
+    */
+    const freelancersList = data?.freelancersList
+    const { theme } = useTheme()
+    const { data, isLoading, error } = useFetch(
+        `http://localhost:8000/freelances`
+    )
 
-    useEffect(() => {
-        async function fetchFreelances() {
-            setDataLoading(true)
-            try {
-                const response = await fetch('http://localhost:8000/freelances')
-                const { freelancersList } = await response.json()
-                setFreeLancesList(freelancersList)
-            }catch (error){
-                console.log(error)
-                setError(true)
-            } finally {
-                setDataLoading(false)
-            }
-        }
-        fetchFreelances()
-    }, [])
 
     if (error){
         return  <span>Il ya erreur</span>
     }
     return(
         <div>
-           <PageTitle>Trouver un Freelance</PageTitle>
-            <PageSubtitle>
+           <PageTitle theme={theme}>Trouver un Freelance</PageTitle>
+            <PageSubtitle theme={theme}>
                 Chew nous les meilleurs prestataires au meilleur prix
             </PageSubtitle>
-            { isDataLoading ? (
+            { isLoading ? (
                 <LoaderWrapper>
-                    <Loader/>
+                    <Loader theme={theme}/>
                 </LoaderWrapper>
             ) :(
             <CardsContainer>
