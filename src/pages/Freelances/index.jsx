@@ -59,12 +59,12 @@ function Freelances() {
     /*const [isDataLoading, setDataLoading] = useState(false)
     const [error, setError] = useState(false)
     */
-    const freelancersList = data?.freelancersList
+
     const { theme } = useTheme()
     const { data, isLoading, error } = useFetch(
         `http://localhost:8000/freelances`
     )
-
+    const freelancersList = data?.freelancersList
 
     if (error){
         return  <span>Il ya erreur</span>
