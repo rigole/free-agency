@@ -117,4 +117,13 @@ function Results() {
     )
 }
 
+
+
 export default Results
+
+export function formatJobList(title, listLength, index) {
+    if (index === listLength - 1){
+        return title
+    }
+    return `${title},`
+}
