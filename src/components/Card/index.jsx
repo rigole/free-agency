@@ -48,7 +48,7 @@ function Card({ label, title, picture}) {
     const [isFavorite, setIsFavorite] = useState(false)
     const star = isFavorite ? '⭐️' : ''
     return(
-        <CardWrapper>
+        <CardWrapper theme={theme} onClick={() => setIsFavorite(!isFavorite)}>
             <CardLabel>{label}</CardLabel>
             <CardImage src={picture} alt="freelance" height={80} width={80}/>
             <CardTitle theme={theme}>
